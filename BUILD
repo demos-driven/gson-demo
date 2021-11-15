@@ -18,6 +18,7 @@ java_library(
         "@maven//:com_google_code_gson_gson",
 
         "@maven//:org_apache_commons_commons_lang3",
+        "@maven//:junit_junit",
     ]
 )
 

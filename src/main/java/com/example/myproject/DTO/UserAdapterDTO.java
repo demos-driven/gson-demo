@@ -1,12 +1,16 @@
 package com.example.myproject.DTO;
 
+import com.example.myproject.json.adapter.UserTypeAdapter;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
 
-public class UserDTO {
+@JsonAdapter(UserTypeAdapter.class)
+// @JsonAdapter(UserSerializer.class)
+public class UserAdapterDTO {
 
     @Expose
     private String name;
@@ -21,22 +25,22 @@ public class UserDTO {
     @SerializedName(value = "email_address", alternate = {"email", "emailAddress"})
     private String emailAddress;
 
-    public UserDTO withName(String name) {
+    public UserAdapterDTO withName(String name) {
         setName(name);
         return this;
     }
 
-    public UserDTO withAge(Integer age) {
+    public UserAdapterDTO withAge(Integer age) {
         setAge(age);
         return this;
     }
 
-    public UserDTO withEmailAddress(String emailAddress) {
+    public UserAdapterDTO withEmailAddress(String emailAddress) {
         setEmailAddress(emailAddress);
         return this;
     }
 
-    public UserDTO withPassword(String password) {
+    public UserAdapterDTO withPassword(String password) {
         setPassword(password);
         return this;
     }

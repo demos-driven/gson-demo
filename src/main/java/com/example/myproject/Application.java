@@ -1,11 +1,16 @@
 package com.example.myproject;
 
+import com.example.myproject.DTO.UserAdapterDTO;
 import com.example.myproject.DTO.UserDTO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class Application {
 
@@ -61,6 +66,25 @@ public class Application {
 
         List<UserDTO> userList = gson.fromJson(usersJson, new TypeToken<List<UserDTO>>() {}.getType());
         System.out.println(userList);
+
+        userDTO.setPassword("123456");
+        // {"name":"litong.deng","age":18,"password":"123456","email_address":"litong.deng@compass.com"}
+        System.out.println(gson.toJson(userDTO));
+
+        Gson gson1 = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        System.out.println(gson1.toJson(userDTO));
+
+        String userJson1 = "{\"name\":\"litong.deng\",\"age\":18,\"email_address\":\"litong.deng@compass.com\",\"password\":\"123456\"}";
+        UserDTO userDTO3 = gson.fromJson(userJson1, UserDTO.class);
+
+        assertEquals(userDTO.getPassword(), userDTO3.getPassword());
+
+        Gson gson2 = new Gson();
+        UserAdapterDTO userAdapterDTO = gson2.fromJson(userJson1, UserAdapterDTO.class);
+        System.out.println(userAdapterDTO);
+        assertNull(userAdapterDTO.getPassword());
     }
 }
 
